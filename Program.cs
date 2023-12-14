@@ -1,10 +1,23 @@
-﻿namespace Poweroff
+﻿using Poweroff.Controllers;
+using Serilog;
+
+namespace Poweroff
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            NetworkListener listener = new(8000);
+
+            listener.StartAsync();
+
+            Console.ReadLine();
+
+            Log.CloseAndFlush();
         }
     }
 }
