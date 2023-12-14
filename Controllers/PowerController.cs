@@ -1,17 +1,14 @@
-﻿using MediatR;
-using Poweroff.Commands;
-using Poweroff.Models;
+﻿using Poweroff.Models;
+using Poweroff.Services;
 
 namespace Poweroff.Controllers
 {
-    public class PowerController(IMediator mediator)
+    public class PowerController(ISystemController systemController)
     {
-        private readonly IMediator _mediator = mediator;
-
+        private readonly ISystemController _systemController = systemController;
         public PoweroffResult Exit()
         {
-            PoweroffResult result = _mediator
-                .Send(new ExitCommand()).Result;
+            PoweroffResult result = _systemController.Leave();
 
             return result;
         }
